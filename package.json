@@ -1,17 +1,22 @@
 {
   "name": "mongoCRUD2",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple RESTful API connected to mongoDB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=mongoCRUD2* NODE_ENV=production node app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Eduard Draghiciu",
+  "email": "drag0022@algongquinlive.com",
+  "license": "ISO",
   "dependencies": {
+    "debug": "^4.3.1",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
     "mongoose": "^5.11.18",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "xss": "^1.0.8"
   }
 }

@@ -1,41 +1,38 @@
-const debug = require('debug')('mongoCRUD2:coursesRouter')
+const debug = require('debug')('mongoCRUD2:studentsRouter')
 const sanitizeBody = require('../middleware/sanitizeBody')
-const Course = require('../models/Course')
+const Student = require('../models/Student')
 const express = require('express')
+const CourseModel = require('../models/Course')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    const courses = await Course.find()
-    res.send({data: courses})
+    const students = await Student.find()
+    res.send({data: students})
 })
 
 router.post('/', sanitizeBody, async (req, res) => {
     try {
-        const newCourse = new Course(req.sanitizedBody)
-        debug({newCourse})
-        await newCourse.save()
-        res.send({data: newCourse})
+        const newStudent = new Student(req.sanitizedBody)
+        await newStudent.save()
+        res.send({data: newStudent})
     } catch(err) {
         debug(err)
     }
 })
 
 router.get('/:id', async (req, res) => {
-    try{
-        const course = await Course.findById(req.params.id)
-        if(!course){
-            throw new Error('resource not found') 
-        }
-        res.send({data: course})
+    try {
+        const student = await Student.findById(req.params.id)
+        if(!student) throw new Error('resource not found')
+        res.send({data: student})
     } catch(err) {
-        sendResourceNotFound(req ,res)
+        sendResourceNotFound(res, req)
     }
 })
 
 router.patch('/:id', sanitizeBody, async (req, res) => {
     try {
-        
-        const course = await Course.findByIdAndUpdate(
+        const student = await Student.findByIdAndUpdate(
             req.params.id,
             req.sanitizedBody,
             {
@@ -43,16 +40,16 @@ router.patch('/:id', sanitizeBody, async (req, res) => {
                 runValidators: true
             }
         )
-        if (!course) throw new Error('Resource not found')
-        res.send({data: course})
+        if (!student) throw new Error('Resource not found')
+        res.send({data: student})
     } catch(err) {
-        debug(err)
+        sendResourceNotFound(req, res)
     }
 })
 
 router.put('/:id', sanitizeBody, async (req, res) => {
     try {
-        const course = await Course.findByIdAndUpdate(
+        const student = await Student.findByIdAndUpdate(
             req.params.id,
             req.sanitizedBody,
             {
@@ -61,22 +58,19 @@ router.put('/:id', sanitizeBody, async (req, res) => {
                 runValidators: true
             }
         )
-        if (!course) throw new Error('Resource not found')
-        res.send({data: car})
+        if (!student) throw new Error('Resource not found')
+        res.send({data: student})
     } catch(err) {
         sendResourceNotFound(req, res)
     }
 })
 
 router.delete('/:id', async (req, res) => {
-    try{
-        const course = await Course.findByIdAndRemove(req.params.id)
-        if(!course) throw new Error('Resource not found')
-        res.send({data: car})
-    } catch(err) {
-        sendResourceNotFound(req, res)
-    }
+    const student = await Student.findByIdAndDelete(req.params.id)
+    if(!student) throw new Error('Resource not found')
+    res.send({data: student})
 })
+
 
 function sendResourceNotFound(req, res){
     res.status(404).send({
