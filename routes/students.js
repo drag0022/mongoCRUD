@@ -1,3 +1,4 @@
+//dependencies
 const debug = require('debug')('mongoCRUD2:studentsRouter')
 const sanitizeBody = require('../middleware/sanitizeBody')
 const Student = require('../models/Student')
@@ -5,6 +6,8 @@ const express = require('express')
 const CourseModel = require('../models/Course')
 const router = express.Router()
 
+
+//CRUD logic
 router.get('/', async (req, res) => {
     const students = await Student.find()
     res.send({data: students})
@@ -71,7 +74,7 @@ router.delete('/:id', async (req, res) => {
     res.send({data: student})
 })
 
-
+//error handling
 function sendResourceNotFound(req, res){
     res.status(404).send({
         errors: [

@@ -1,5 +1,8 @@
+//dependencies
 const debug = require('debug')('mongoCRUD2:db')
 const mongoose = require('mongoose')
+
+//Connect to mongoDB
 mongoose.connect('mongodb://localhost:27017/mongoCRUD', {
     useNewUrlParser: true,
     useCreateIndex: true,

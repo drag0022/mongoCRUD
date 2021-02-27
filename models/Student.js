@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 
+
+// Student Model
 const Student = new mongoose.Schema({
     firstName: {type: String, required: true, maxLength: 64},
     lastName: {type: String, required: true, maxLength: 64},

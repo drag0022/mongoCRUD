@@ -1,5 +1,6 @@
 const xss = require('xss')
 
+// initialize xss
 const sanitize = sourceString => {
     return xss(sourceString, {
         whiteList: [],
@@ -8,6 +9,7 @@ const sanitize = sourceString => {
     })
 }  
 
+//recursively check for html tags inside objects and arrays
 const stripTags = payload => {
     let attributes = {...payload}
     for (let key in attributes){
@@ -24,9 +26,8 @@ const stripTags = payload => {
     return attributes
 }
 
-
+// export req.sanitizeBody
 module.exports = (req, res, next) => {
-
     const {id, _id, ...attributes} = req.body
     for (let key in attributes){
         attributes[key] = xss(attributes[key], {

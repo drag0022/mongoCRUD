@@ -1,13 +1,13 @@
 'use strict'
-
+//dependencies
 const debug = require('debug')('mongoCRUD2:db')
-
 require('./startup/dbConnect')
 const sanitizeMongo = require('express-mongo-sanitize')
 const morgan = require('morgan')
 const express = require('express')
 const app = express()
 
+//middlewares
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(sanitizeMongo())

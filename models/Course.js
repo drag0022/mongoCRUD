@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+// Course Model
 const Course = new mongoose.Schema({
     code: {type: String, required: true, maxLength: 16},
     title: {type: String, required: true, maxLength: 255},
